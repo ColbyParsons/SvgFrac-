@@ -3,7 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <math.h>
-#include "Path.h"
+#include "SvgPath.h"
 
 constexpr long double TAU = ( 2 * M_PI );
 
