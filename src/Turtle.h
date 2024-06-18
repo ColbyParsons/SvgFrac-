@@ -12,7 +12,6 @@ class Turtle {
     long double direction; // in radians
     long double stepSize;
     long double turnDelta;
-    Path path;
 
     void step() {
         pos.x += stepSize * cos( direction );
@@ -20,15 +19,20 @@ class Turtle {
     }
     
   public:
+    Path path;
 
-    Turtle() : pos( 0, 0 ), direction( 0 ), stepSize( 1 ), turnDelta( M_PI_2 ) {}
-    Turtle( Pos2D pos ) : pos( pos ), direction( 0 ), stepSize( 1 ), turnDelta( M_PI_2 ) {}
+    void init() {
+        path.moveTo( pos );
+    }
+
+    Turtle() : pos( 0, 0 ), direction( 0 ), stepSize( 1 ), turnDelta( M_PI_2 ) { init(); }
+    Turtle( Pos2D pos ) : pos( pos ), direction( 0 ), stepSize( 1 ), turnDelta( M_PI_2 ) { init(); }
     Turtle( Pos2D pos, long double dir ) 
-        : pos( pos ), direction( dir ), stepSize( 1 ), turnDelta( M_PI_2 ) {}
+        : pos( pos ), direction( dir ), stepSize( 1 ), turnDelta( M_PI_2 ) { init(); }
     Turtle( Pos2D pos, long double dir, long double step )
-        : pos( pos ), direction( dir ), stepSize( step ), turnDelta( M_PI_2 ) {}
+        : pos( pos ), direction( dir ), stepSize( step ), turnDelta( M_PI_2 ) { init(); }
     Turtle( Pos2D pos, long double dir, long double step, long double turnDelta )
-        : pos( pos ), direction( dir ), stepSize( step ), turnDelta( turnDelta ) {}
+        : pos( pos ), direction( dir ), stepSize( step ), turnDelta( turnDelta ) { init(); }
 
     // Move one stepSize forward while drawing
     void drawStep() { 
@@ -36,7 +40,7 @@ class Turtle {
         // could buffer steps to achieve this and only flush to path upon 
         // direction change or operation change
         step();
-        path.pathTo( pos );
+        path.lineTo( pos );
     }
 
     void moveStep() {
