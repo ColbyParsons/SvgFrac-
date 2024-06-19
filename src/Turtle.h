@@ -65,6 +65,6 @@ class Turtle {
 
     // Uses default turning amount passed to ctor
     void rotateRight() {
-        direction = fmod( direction + turnDelta, TAU );
+        direction = fmod( direction - turnDelta, TAU );
     }
 };
