@@ -36,8 +36,9 @@ constexpr char pathPrefix [] = "<path style=\"fill: none; stroke: black; stroke-
 constexpr char pathSuffix [] = "\"/>";
 // Representation of an svg path
 class Path {
-    vector<PathStep> steps;
+    
   public:
+    vector<PathStep> steps;
     void moveTo( long double x, long double y ) {
         steps.emplace_back( PathStep::Command::MoveTo, x, y );
     }
