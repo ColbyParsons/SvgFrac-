@@ -12,20 +12,36 @@ constexpr const char svgSuffix [] = "</svg>";
 
 
 class SvgWriter {
-    Path & path; // TODO: add support for multiple svg items
     ostream & out;
     long width, height;
-    
+    vector<Path *> paths; // TODO: add support for multiple svg item types
 
   public:
-    SvgWriter( Path & path ) : path( path ), out( cout ), width( 100 ), height( 100 ) {}
-    SvgWriter( Path & path, ostream & out ) : path( path ), out( out ), width( 100 ), height( 100 ) {}
-    SvgWriter( Path & path, ostream & out, long width, long height )
-        : path( path ), out( out ), width( width ), height( height ) {}
+    SvgWriter() : out( cout ), width( 100 ), height( 100 ) {}
+    SvgWriter( ostream & out ) : out( out ), width( 100 ), height( 100 ) {}
+    SvgWriter( ostream & out, long width, long height ) : out( out ), width( width ), height( height ) {}
+
+    void addPath( Path & path ) {
+        paths.emplace_back( &path );
+    }
+
+    void writeHeader() {
+        out << svgPrefix1 << width << svgPrefix2 << height << svgPrefix3 << endl;
+    }
+
+    void writeFooter() {
+        out << svgSuffix << endl;
+    }
+
+    void writePaths( bool clear = false ) {
+        for ( const auto & path : paths )
+            out << path->print() << endl;
+        if ( clear ) paths.clear();
+    }
 
     void write() {
-        out << svgPrefix1 << width << svgPrefix2 << height << svgPrefix3 << endl;
-        out << path.print() << endl;
-        out << svgSuffix << endl;
+        writeHeader();
+        writePaths();
+        writeFooter();
     }
 };
