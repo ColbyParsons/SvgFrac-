@@ -4,7 +4,7 @@ Some C++ code for generating svg fractals
 Turns out svgs start to lag pretty badly when the paths get too complex, so I have abandoned this in favour of using bitmap images.
 
 TODOS:
-- Change output format from svg to some image format.
+- Change output format from svg to some image format. (probably ppm)
     - Make data class for output format.
     - Make file writer for said output format.
 - Make some form of standardized datafile for specifying lsystems, context-sensitive lsystems, randomized lsystems, etc.
